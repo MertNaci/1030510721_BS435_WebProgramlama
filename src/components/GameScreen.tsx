@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {questions,ImageOption} from "../data/questions";
+import {questions, type ImageOption} from "../data/questions";
 
 type GameScreenProps = {
     onEnd: () => void;
