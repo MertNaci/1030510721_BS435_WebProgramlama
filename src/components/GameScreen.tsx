@@ -2,7 +2,7 @@ import {useState} from "react";
 import {questions, type ImageOption} from "../data/questions";
 
 type GameScreenProps = {
-    onEnd: () => void;
+    onEnd: (finalScore: number) => void;
 }
 
 const GameScreen = ({onEnd}: GameScreenProps) => {
@@ -11,13 +11,16 @@ const GameScreen = ({onEnd}: GameScreenProps) => {
     const [selectedOptionId, setSelectedOptionId] = useState<number | null>(null);
     const [wrongGuessCount, setWrongGuessCount] = useState(0);
     const [wrongClickedIds, setWrongClickedIds] = useState<number[]>([]);
+
+    const [score, setScore] = useState(0);
+
     const currentQuestion = questions[currentQuestionIndex];
     const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
     const handleNextQuestion = () => {
         if (isLastQuestion) {
             alert("Oyun Bitti! Tebrikler.");
-            onEnd();
+            onEnd(score);
         } else {
             setCurrentQuestionIndex((prev) => prev + 1);
             setGuessStatus("idle");
@@ -34,6 +37,7 @@ const GameScreen = ({onEnd}: GameScreenProps) => {
 
         if (option.isAi) {
             setGuessStatus('correct');
+            setScore((prevScore) => prevScore + 1);
         } else {
             const newWrongCount = wrongGuessCount + 1;
             setWrongGuessCount(newWrongCount);
@@ -48,10 +52,12 @@ const GameScreen = ({onEnd}: GameScreenProps) => {
 
     return (
         <div className = "game-container">
-            <h2>Hangisi Yapay Zeka?</h2>
-            <p>Soru: {currentQuestionIndex + 1} / {questions.length}</p>
-            <p>Kalan Hakkın: {2 - wrongGuessCount}</p>
-            <p>Aşağıdaki 3 görselden birini seç:</p>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <h2>Hangisi Yapay Zeka?</h2>
+                <span style={{backgroundColor: '#646cff', padding: '5px 10px', borderRadius: '5px', color: 'white'}}>
+                    Puan: {score}
+                </span>
+            </div>
 
             <div className = "images-wrapper">
                 {currentQuestion.options.map((option) => {
@@ -100,37 +106,39 @@ const GameScreen = ({onEnd}: GameScreenProps) => {
                 })}
             </div>
 
-            {guessStatus === "wrong" && (
-                <div style={{ marginTop: "20px", color: "orange" }}>
-                    <h3>Dikkat! Yanlış Seçim.</h3>
-                    <p>Son bir hakkın kaldı. <strong>İpucu:</strong> {currentQuestion.options.find(opt => opt.isAi)?.hint}</p>
-                </div>
-            )}
+            <div className="feedback-area">
 
-            {guessStatus === "lost" && (
-                <div style={{ marginTop: "20px", color: "red" }}>
-                    <h3>Üzgünüm, Bilemedin!</h3>
-                    <p>Doğru cevap işaretlendi.</p>
-                    <button onClick={handleNextQuestion}>
-                        {isLastQuestion ? "Sonuçları Gör" : "Sıradaki Soruya Geç"}
-                    </button>
-                </div>
-            )}
+                {guessStatus === "wrong" && (
+                    <div style={{ color: "orange" }}>
+                        <h3>Dikkat! Yanlış Seçim.</h3>
+                        <p>Son bir hakkın kaldı. <strong>İpucu:</strong> {currentQuestion.options.find(opt => opt.isAi)?.hint}</p>
+                    </div>
+                )}
 
-            {guessStatus === "correct" && (
-                <div style={{ marginTop: "20px", color: "green" }}>
-                    <h3>Tebrikler! Doğru Bildin.</h3>
-                    <button onClick={handleNextQuestion}>
-                        {isLastQuestion ? "Oyunu Bitir" : "Sonraki Tur"}
-                    </button>
-                </div>
-            )}
+                {guessStatus === "lost" && (
+                    <div style={{ color: "red" }}>
+                        <h3>Üzgünüm, Bilemedin!</h3>
+                        <p>Doğru cevap işaretlendi.</p>
+                        <button onClick={handleNextQuestion}>
+                            {isLastQuestion ? "Sonuçları Gör" : "Sıradaki Soruya Geç"}
+                        </button>
+                    </div>
+                )}
 
-            <button className = "back-btn" onClick={onEnd} style={{ marginTop: "40px", backgroundColor: "#555" }}>
+                {guessStatus === "correct" && (
+                    <div style={{ color: "green" }}>
+                        <h3>Tebrikler! Doğru Bildin.</h3>
+                        <button onClick={handleNextQuestion}>
+                            {isLastQuestion ? "Oyunu Bitir" : "Sonraki Tur"}
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            <button className="back-btn" onClick={() => onEnd(0)} style={{ marginTop: "20px", backgroundColor: "#555" }}>
                 Ana Menüye Dön
             </button>
         </div>
     )
 }
-
 export default GameScreen;

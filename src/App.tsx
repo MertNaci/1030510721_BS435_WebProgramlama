@@ -1,29 +1,45 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import './App.css'
 import StartScreen from './components/StartScreen.tsx'
 import GameScreen from './components/GameScreen.tsx'
+import ResultScreen from './components/ResultScreen.tsx'
+import { questions } from './data/questions.ts'
+
+type GameState = 'start' | 'game' | 'result';
 
 function App() {
-    const [gameStarted, setGameStarted] = useState(false)
+    const [gameState, setGameState] = useState<GameState>('start');
+    const [finalScore, setFinalScore] = useState(0);
 
     const handleStartGame = () => {
-        setGameStarted(true)
+        setGameState('game');
+        setFinalScore(0);
     }
-
-    const handleEndGame = () => {
-        setGameStarted(false)
+    const handleEndGame = (score: number) => {
+        setFinalScore(score);
+        setGameState('result');
+    }
+    const handleRestart = () => {
+        setGameState('start');
     }
 
     return (
         <div className='app-container'>
-            {!gameStarted ? (
-                // Başlangıç ekranı
-                <StartScreen onStart = {handleStartGame}/>
-            ) : (
-                // Oyun ekranı
-                <GameScreen onEnd = {handleEndGame}/>
-            )
-            }
+            {gameState === 'start' && (
+                <StartScreen onStart={handleStartGame} />
+            )}
+
+            {gameState === 'game' && (
+                <GameScreen onEnd={handleEndGame} />
+            )}
+
+            {gameState === 'result' && (
+                <ResultScreen
+                    score={finalScore}
+                    totalQuestions={questions.length}
+                    onRestart={handleRestart}
+                />
+            )}
         </div>
     )
 }

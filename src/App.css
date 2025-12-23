@@ -52,3 +52,11 @@ button:hover {
 .back-btn {
     margin-top: 20px;
 }
+.feedback-area {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
