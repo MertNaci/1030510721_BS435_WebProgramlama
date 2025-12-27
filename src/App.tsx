@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import StartScreen from './components/StartScreen.tsx'
+import StartScreen , {type GameMode} from './components/StartScreen.tsx'
 import GameScreen from './components/GameScreen.tsx'
 import ResultScreen from './components/ResultScreen.tsx'
 import { questions } from './data/questions.ts'
@@ -10,8 +10,10 @@ type GameState = 'start' | 'game' | 'result';
 function App() {
     const [gameState, setGameState] = useState<GameState>('start');
     const [finalScore, setFinalScore] = useState(0);
+    const [selectedMode, setSelectedMode] = useState<GameMode>("classic");
 
-    const handleStartGame = () => {
+    const handleStartGame = (mode:GameMode) => {
+        setSelectedMode(mode);
         setGameState('game');
         setFinalScore(0);
     }
@@ -30,7 +32,7 @@ function App() {
             )}
 
             {gameState === 'game' && (
-                <GameScreen onEnd={handleEndGame} />
+                <GameScreen onEnd={handleEndGame} mode={selectedMode} />
             )}
 
             {gameState === 'result' && (
