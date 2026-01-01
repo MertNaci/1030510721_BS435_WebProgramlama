@@ -16,19 +16,19 @@ export const questions: Question[] = [
         options: [
             {
                 id: 101,
-                url: "https://picsum.photos/id/10/300/300",
+                url: "/images/Q1-real1.jpg",
                 isAi: false
             },
             {
                 id: 102,
-                url: "https://picsum.photos/id/77/300/300",
+                url: "/images/Q1-real2.jpg",
                 isAi: false
             },
             {
                 id: 103,
-                url: "https://picsum.photos/id/84/300/300",
+                url: "/images/Q1-ai.png",
                 isAi: true,
-                hint: "Arka plandaki nesnelerin büküldüğüne dikkat et."
+                hint: "Arka plan detaylarına dikkat et."
             }
         ]
     },
@@ -37,20 +37,63 @@ export const questions: Question[] = [
         options: [
             {
                 id: 201,
-                url: "https://picsum.photos/id/159/300/300",
+                url: "/images/Q2-ai.png",
                 isAi: true,
-                hint: "Işıklandırma çok yapay duruyor, gölgelere bak."
+                hint: "Yansımalara bakabilirsin ya da aşırı mükemmel olmasına dikkat et."
             },
             {
                 id: 202,
-                url: "https://picsum.photos/id/133/300/300",
+                url: "/images/Q2-real3.jpg",
                 isAi: false
             },
             {
                 id: 203,
-                url: "https://picsum.photos/id/219/300/300",
+                url: "/images/Q2-real4.jpg",
                 isAi: false
             }
+        ]
+    },
+    {
+        id: 3,
+        options: [
+            {
+                id: 301,
+                url: "/images/Q3-real5.jpg",
+                isAi: false
+            },
+            {
+                id: 302,
+                url: "/images/Q3-real6.jpg",
+                isAi: false
+            },
+            {
+                id: 303,
+                url: "/images/Q3-ai.png",
+                isAi: true,
+                hint: "Kusursuz ışık dengesine dikkat et."
+            }
+        ]
+    },
+    {
+        id: 4,
+        options: [
+            {
+                id: 401,
+                url: "/images/Q4-real7.jpg",
+                isAi: false
+            },
+            {
+                id: 402,
+                url: "/images/Q4-ai.png",
+                isAi: true,
+                hint: "Gerçekçilik katmak için konulan şeylere dikkat et."
+            },
+            {
+                id: 403,
+                url: "/images/Q4-real8.jpg",
+                isAi: false
+            }
+
         ]
     }
 ];
