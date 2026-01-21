@@ -11,28 +11,28 @@ const ResultScreen = ({ score, totalQuestions, onRestart }: ResultScreenProps) =
     let color = "";
 
     if (successRate === 100) {
-        message = "Mükemmel! Bir Yapay Zeka Avcısısın! 🤖🚫";
+        message = "Perfect! You are an AI Hunter! 🤖🚫";
         color = "green";
     } else if (successRate >= 50) {
-        message = "Gayet İyi! Çoğunu bildin.";
+        message = "Good Job! You got most of them right.";
         color = "#4A90E2";
     } else {
-        message = "Biraz daha pratik yapmalısın.";
+        message = "You need a bit more practice.";
         color = "orange";
     }
 
     return (
         <div className="card">
-            <h1>Oyun Bitti!</h1>
+            <h1>Game Over!</h1>
             <div style={{ margin: '20px 0', fontSize: '1.2rem' }}>
-                <p>Toplam Skorun:</p>
+                <p>Your Score:</p>
                 <h2 style={{ fontSize: '3rem', color: color, margin: '10px 0' }}>
                     {score} / {totalQuestions}
                 </h2>
                 <p style={{ fontWeight: 'bold', color: color }}>{message}</p>
             </div>
             <button onClick={onRestart}>
-                Tekrar Oyna
+                Play Again
             </button>
         </div>
     );

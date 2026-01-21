@@ -28,7 +28,7 @@ export const questions: Question[] = [
                 id: 103,
                 url: "/images/Q1-ai.png",
                 isAi: true,
-                hint: "Arka plan detaylarına dikkat et."
+                hint: "Pay attention to the background details."
             }
         ]
     },
@@ -39,7 +39,7 @@ export const questions: Question[] = [
                 id: 201,
                 url: "/images/Q2-ai.png",
                 isAi: true,
-                hint: "Yansımalara bakabilirsin ya da aşırı mükemmel olmasına dikkat et."
+                hint: "Check the reflections or look for unnatural perfection."
             },
             {
                 id: 202,
@@ -70,7 +70,7 @@ export const questions: Question[] = [
                 id: 303,
                 url: "/images/Q3-ai.png",
                 isAi: true,
-                hint: "Kusursuz ışık dengesine dikkat et."
+                hint: "Pay attention to the flawless lighting balance."
             }
         ]
     },
@@ -86,7 +86,7 @@ export const questions: Question[] = [
                 id: 402,
                 url: "/images/Q4-ai.png",
                 isAi: true,
-                hint: "Gerçekçilik katmak için konulan şeylere dikkat et."
+                hint: "Look closely at the details added to create realism."
             },
             {
                 id: 403,

@@ -81,17 +81,17 @@ const GameScreen = ({onEnd, mode}: GameScreenProps) => {
         <div className="game-container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div style={{ textAlign: 'left' }}>
-                    <h2 style={{ margin: 0 }}>Yapay Zeka Avı</h2>
+                    <h2 style={{ margin: 0 }}>AI Hunter</h2>
                     <span style={{
                         fontSize: '0.8rem',
                         fontWeight: 'bold',
                         color: isHardcore ? 'red' : (isTimeAttack ? '#F57C00' : '#555')
                     }}>
-                        MOD: {isHardcore ? "HARDCORE" : (isTimeAttack ? "TIME ATTACK" : "CLASSIC")}
+                        MODE: {isHardcore ? "HARDCORE" : (isTimeAttack ? "TIME ATTACK" : "CLASSIC")}
                     </span>
                 </div>
                 <span style={{ backgroundColor: '#646cff', padding: '5px 15px', borderRadius: '20px', color: 'white', fontWeight: 'bold' }}>
-                    Puan: {score}
+                    Score: {score}
                 </span>
             </div>
             {isTimeAttack && (
@@ -105,11 +105,11 @@ const GameScreen = ({onEnd, mode}: GameScreenProps) => {
                 </div>
             )}
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#666' }}>
-                <p>Soru: {currentQuestionIndex + 1} / {questions.length}</p>
+                <p>Question: {currentQuestionIndex + 1} / {questions.length}</p>
                 {isTimeAttack ? (
-                    <p style={{ color: timeLeft < 5 ? 'red' : 'inherit', fontWeight: 'bold' }}>Süre: {timeLeft}sn</p>
+                    <p style={{ color: timeLeft < 5 ? 'red' : 'inherit', fontWeight: 'bold' }}>Time: {timeLeft}s</p>
                 ) : (
-                    !isHardcore && <p>Kalan Hakkın: {2 - wrongGuessCount}</p>
+                    !isHardcore && <p>Lives Left: {2 - wrongGuessCount}</p>
                 )}
             </div>
             <div className="images-wrapper">
@@ -139,7 +139,7 @@ const GameScreen = ({onEnd, mode}: GameScreenProps) => {
                                     backgroundColor: 'rgba(76, 175, 80, 0.9)', color: 'white',
                                     padding: '5px', borderRadius: '5px', fontWeight: 'bold', zIndex: 10
                                 }}>
-                                    YAPAY ZEKA
+                                    AI GENERATED
                                 </div>
                             )}
                             {showX && (
@@ -152,7 +152,7 @@ const GameScreen = ({onEnd, mode}: GameScreenProps) => {
                             )}
                             <img
                                 src={option.url}
-                                alt="Tahmin Seçeneği"
+                                alt="Guess Option"
                                 style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
                             />
                         </div>
@@ -163,34 +163,34 @@ const GameScreen = ({onEnd, mode}: GameScreenProps) => {
             <div className="feedback-area">
                 {guessStatus === "wrong" && (
                     <div style={{ color: "orange" }}>
-                        <h3>Dikkat! Yanlış Seçim.</h3>
-                        <p>Tekrar dene. <strong>İpucu:</strong> {currentQuestion.options.find(opt => opt.isAi)?.hint}</p>
+                        <h3>Careful! Wrong Choice.</h3>
+                        <p>Try again. <strong>Hint:</strong> {currentQuestion.options.find(opt => opt.isAi)?.hint}</p>
                     </div>
                 )}
                 {guessStatus === "lost" && (
                     <div style={{ color: "red" }}>
-                        <h3>{timeLeft <= 0 && isTimeAttack ? "Süre Doldu!" : (isHardcore ? "Yandın!" : "Üzgünüm, Bilemedin!")}</h3>
+                        <h3>{timeLeft <= 0 && isTimeAttack ? "Time's Up!" : (isHardcore ? "Game Over!" : "Sorry, Wrong Guess!")}</h3>
                         <p>
-                            {timeLeft <= 0 && isTimeAttack ? "Zamanında cevap veremedin." :
-                                isHardcore ? "Hardcore modunda hata affedilmez." : "Doğru cevap işaretlendi."}
+                            {timeLeft <= 0 && isTimeAttack ? "You didn't answer in time." :
+                                isHardcore ? "No mistakes allowed in Hardcore mode." : "The correct answer has been marked."}
                         </p>
                         <button onClick={handleNextQuestion}>
-                            {isLastQuestion ? "Sonuçları Gör" : "Sıradaki Soruya Geç"}
+                            {isLastQuestion ? "See Results" : "Next Question"}
                         </button>
                     </div>
                 )}
                 {guessStatus === "correct" && (
                     <div style={{ color: "green" }}>
-                        <h3>Tebrikler! Doğru Bildin.</h3>
+                        <h3>Congratulations! Correct.</h3>
                         <button onClick={handleNextQuestion}>
-                            {isLastQuestion ? "Oyunu Bitir" : "Sonraki Tur"}
+                            {isLastQuestion ? "Finish Game" : "Next Round"}
                         </button>
                     </div>
                 )}
             </div>
 
             <button className="back-btn" onClick={() => onEnd(0)} style={{ marginTop: "20px", backgroundColor: "#555" }}>
-                Ana Menüye Dön
+                Return to Main Menu
             </button>
         </div>
     )
